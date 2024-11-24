@@ -1,9 +1,10 @@
 package com.dat250.group8.pollapp_analytics_component;
 
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class Receiver {
 
   private CountDownLatch latch = new CountDownLatch(1);
-  private Map<String, Object> latestMessage;
+  private LinkedHashMap latestMessage;
   @Autowired
   private AggregatedPollRepository pollRepository;
 
@@ -21,9 +22,10 @@ public class Receiver {
 //    latch.countDown();
 //  }
 
-  public void receiveMessage(Map<String, Object> message) {
+  public void receiveMessage(LinkedHashMap message) {
+    //String decoded_string = new String(message, StandardCharsets.UTF_8);
 
-    if(message == null) {
+    if(message.isEmpty()) {
       System.err.println("Received a null or empty message, skipping processing.");
       latch.countDown();
       return;
@@ -39,7 +41,7 @@ public class Receiver {
     return latch;
   }
 
-  public Map<String, Object> getLatestMessage() {
+  public LinkedHashMap getLatestMessage() {
     return latestMessage;
   }
 }

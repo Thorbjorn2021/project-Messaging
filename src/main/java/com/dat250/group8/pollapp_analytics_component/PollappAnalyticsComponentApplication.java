@@ -27,6 +27,8 @@ public class PollappAnalyticsComponentApplication {
 
 	static final String queueName = "pollapp-analytics-queue";
 
+	static final String routingKey = "vote.event";
+
 	@Bean
 	Queue queue() {
 		return new Queue(queueName, false);
@@ -44,12 +46,13 @@ public class PollappAnalyticsComponentApplication {
 
 	@Bean
 	public Jackson2JsonMessageConverter jsonMessageConverter() {
+		
 		return new Jackson2JsonMessageConverter();
 	}
 
 	@Bean
 	Binding binding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with("vote.event");
+		return BindingBuilder.bind(queue).to(exchange).with(routingKey);
 	}
 
 	@Bean
