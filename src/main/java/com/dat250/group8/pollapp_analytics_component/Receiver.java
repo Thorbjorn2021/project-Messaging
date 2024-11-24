@@ -1,6 +1,5 @@
 package com.dat250.group8.pollapp_analytics_component;
 
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -16,14 +15,8 @@ public class Receiver {
   @Autowired
   private AggregatedPollRepository pollRepository;
 
-//    public void receiveMessage(Map<String, Object> message) {
-//      String msg = (String) message.get("message");
-//    System.out.println("Received <" + msg + ">");
-//    latch.countDown();
-//  }
 
   public void receiveMessage(LinkedHashMap message) {
-    //String decoded_string = new String(message, StandardCharsets.UTF_8);
 
     if(message.isEmpty()) {
       System.err.println("Received a null or empty message, skipping processing.");

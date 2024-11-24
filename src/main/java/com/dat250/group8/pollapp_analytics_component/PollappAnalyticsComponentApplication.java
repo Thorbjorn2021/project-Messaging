@@ -40,11 +40,6 @@ public class PollappAnalyticsComponentApplication {
 	}
 
 	@Bean
-	public MessageConverter messageConverter() {
-		return new SimpleMessageConverter();
-	}
-
-	@Bean
 	public Jackson2JsonMessageConverter jsonMessageConverter() {
 		
 		return new Jackson2JsonMessageConverter();
